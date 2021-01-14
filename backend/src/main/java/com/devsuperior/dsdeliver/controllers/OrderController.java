@@ -44,6 +44,5 @@ public class OrderController {
 		
 		OrderDTO dto = service.setDelivered(id);
 		return ResponseEntity.ok().body(dto);
-	}
-	
+	}	
 }
