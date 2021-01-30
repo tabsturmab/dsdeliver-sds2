@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import AsyncSelect from 'react-select/async';
 import { fetchLocalMapBox } from '../api';
-import { OrderLocationdata } from './types';
+import { OrderLocationData } from './types';
 
 const initialPosition = {
     lat: -23.6605324,
@@ -18,12 +19,12 @@ type Place = {
 }
 
 type Props = {
-    onChangeLocation: (location: OrderLocationdata) => void;
-  };
+    onChangeLocation: (location: OrderLocationData) => void;
+};
 
 function OrderLocation({ onChangeLocation }: Props) {
     const [address, setAddress] = useState<Place>({
-      position: initialPosition,
+        position: initialPosition,
     });
 
     const loadOptions = async (inputValue: string, callback: (places: Place[]) => void) => {
@@ -48,34 +49,37 @@ function OrderLocation({ onChangeLocation }: Props) {
         onChangeLocation({
             latitude: place.position.lat,
             longitude: place.position.lng,
-            address: place.label!
+            address: place.label!,
         });
     };
 
     return (
-        <div className="order-location-container">
-            <div className="order-location-content">
-                <h3 className="order-location-title">
-                    Selecione onde o pedido deve ser entregue:
+        <div className="orders-container">
+            <div className="order-location-container">
+                <div className="order-location-content">
+                    <h3 className="order-location-title">
+                        Selecione onde o pedido deve ser entregue:
                 </h3>
-                <div className="filter-container">
-                    <AsyncSelect
-                        placeholde="Digite um endereço para entregar o pedido"
-                        className="filter"
-                        loadOptions={loadOptions}
-                        onChange={value => handleChangeSelect(value as Place)}
-                    />
+                    <div className="filter-container">
+                        <AsyncSelect
+                            placeholder="Digite um endereço para entregar o pedido"
+                            className="filter"
+                            loadOptions={loadOptions}
+                            onChange={value => handleChangeSelect(value as Place)}
+                        />
+                    </div>
+                    <div className="filter-container"></div>
+                    <MapContainer center={address.position} zoom={17} key={address.position.lat} scrollWheelZoom={true}>
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        <Marker position={address.position}>
+                            <Popup>
+                                {address.label}
+                            </Popup>
+                        </Marker>
+                    </MapContainer>
                 </div>
-                <MapContainer center={address.position} zoom={13} key={address.position.lat} scrollWheelZoom>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <Marker position={address.position}>
-                        <Popup>
-                            {address.label}
-                        </Popup>
-                    </Marker>
-                </MapContainer>
             </div>
         </div>
     )
