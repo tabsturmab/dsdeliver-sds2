@@ -6,6 +6,7 @@ export type Product = {
   imageUri: string;
 }
 
+//Responsável para enviar ao backend
 export type OrderLocationData = {
   latitude: number;
   longitude: number;

@@ -13,6 +13,7 @@ import './styles.css';
 function Orders() {
   const [ products, setProducts ] = useState<Product[]>([]);
   const [ selectedProducts, setSelectedProducts ] = useState<Product[]>([]);
+  //O endereço (localização selecionada) vai estar na variável orderLocation
   const [ orderLocation, setOrderLocation ] = useState<OrderLocationData>();
   const totalPrice = selectedProducts.reduce((sum, item) => {
     return sum + item.price;

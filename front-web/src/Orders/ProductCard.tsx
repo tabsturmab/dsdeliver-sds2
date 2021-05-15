@@ -18,7 +18,7 @@ function ProductCard({ product, onSelectProduct, isSelected }: Props) {
       </h3>
       <img
         src={ product.imageUri }
-        alt={ `imagem ${product.name}` }
+        alt={ `imagem ${product.name}`}
         className="order-card-image"
       />
       <h3 className="order-card-price">
