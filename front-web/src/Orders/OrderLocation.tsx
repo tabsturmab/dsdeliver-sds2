@@ -79,7 +79,7 @@ function OrderLocation({ onChangeLocation }: Props) {
         {/* Posição do Mapa e Zoom */}
         <MapContainer
           center={address.position}
-          zoom={17}
+          zoom={21}
           key={address.position.lat}
           scrollWheelZoom>
 
